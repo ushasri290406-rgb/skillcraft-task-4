@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat vs Dog Classifier</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            margin-top: 50px;
+        }
+
+        .container {
+            width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🐱 Cat vs 🐶 Dog Classifier</h2>
+
+    <input type="file" id="imageUpload" accept="image/*">
+
+    <br><br>
+
+    <img id="preview" src="" alt="Upload Image">
+
+    <br>
+
+    <button onclick="predictAnimal()">Predict</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function predictAnimal() {
+
+    let file = document.getElementById("imageUpload").files[0];
+
+    if (!file) {
+        alert("Please upload an image.");
+        return;
+    }
+
+    let fileName = file.name.toLowerCase();
+
+    if (fileName.includes("cat")) {
+        document.getElementById("result").innerHTML =
+            "Prediction: 🐱 Cat";
+    }
+    else if (fileName.includes("dog")) {
+        document.getElementById("result").innerHTML =
+            "Prediction: 🐶 Dog";
+    }
+    else {
+        document.getElementById("result").innerHTML =
+            "Prediction: Unable to identify";
+    }
+}
+
+document.getElementById("imageUpload")
+.addEventListener("change", function(event) {
+
+    let reader = new FileReader();
+
+    reader.onload = function() {
+        document.getElementById("preview").src =
+            reader.result;
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+});
+</script>
+
+</body>
+</html>
